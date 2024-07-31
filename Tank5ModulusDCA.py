@@ -453,8 +453,13 @@ class Tank5ModulusDCA(IStrategy):
         # Save extrema to pickle file.
         if self.dp.runmode.value in ('live', 'dry_run'):
             base = pair.split('/')
+            directory = 'pkl'
             path = os.path.join('pkl', f"{base[0]}.pkl")
-            
+
+            # Ensure the directory exists
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+
             if os.path.exists(path) and os.path.getsize(path) > 0:
                 try:
                     df_pkl = pd.read_pickle(path)
